@@ -1,0 +1,170 @@
+/*!
+ * Switchy - iOS Style switches for checkboxes
+ * 
+ * This library can be used as a pure CSS (or LESS) implementation of iOS style switch styles for checkboxes
+ * You can use the javascript to add the ability of the checkboxes to update their values based on data-attributes in the markup (making it a little less pure ;) )
+ *
+ * With thanks to Bandar Raffah for the great work
+ * on this pure CSS implementation:
+ *
+ * http://codepen.io/BandarRaffah/pen/ibwje
+ *
+ * ---------------------------------------------
+ * 
+ * VERSION: 0.0.1
+ * DATE: 2016-01-7
+ *
+ * @license Licensed under the MIT License
+ * See LICENSE for details
+ * 
+ * @author: Matt Daniels, me@mattdaniels.com.au
+ */
+
+// Usees Primary colour set elsewhere - of course, this can be any colour object in LESS
+@switch-track-color: @color-primary;
+
+input[type="checkbox"] {
+    &.ios-switch {
+
+        position: absolute;
+        opacity: 0;
+        ~ div.switch-track {
+            cursor: pointer;
+            box-sizing: content-box;
+            vertical-align: middle;
+            width: 40px;
+            height: 20px;
+            border: 1px solid rgba(0, 0, 0, .4);
+            border-radius: 999px;
+            .box-shadow(inset 0 0 0 0px rgba(0, 0, 0, 0.4));
+            background-color: rgba(0, 0, 0, 0.1);
+            -webkit-transition-duration: .4s;
+            -webkit-transition-property: background-color, box-shadow;
+            // margin: 15px 1.2em 15px 2.5em;
+            margin: 4px 0;
+            position: relative;
+            &::after {
+                content: attr(data-switch-off-label);
+                display: inline-block;
+                position: absolute;
+                left: 50px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 250px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            /* Normal Knob */
+            > div {
+                box-sizing: content-box;
+                float: left;
+                width: 18px;
+                height: 18px;
+                border-radius: inherit;
+                background: #ffffff;
+                -webkit-transition-timing-function: cubic-bezier(.54, 1.85, .5, 1);
+                -webkit-transition-duration: 0.4s;
+                -webkit-transition-property: transform, background-color, box-shadow;
+                -moz-transition-timing-function: cubic-bezier(.54, 1.85, .5, 1);
+                -moz-transition-duration: 0.4s;
+                -moz-transition-property: transform, background-color;
+                .box-shadow(~'0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(0, 0, 0, 0.4)');
+                pointer-events: none;
+                margin-top: 1px;
+                margin-left: 1px;
+            }
+        }
+        /* Checked Track (Primary) */
+        &:checked {
+            ~ div.switch-track {
+                width: 40px;
+                background-position: 0 0;
+                background-color: @switch-track-color;
+                border: 1px solid darken(@switch-track-color, 10%);
+                .box-shadow(inset 0 0 0 10px @switch-track-color);
+                &::after {
+                    content: attr(data-switch-on-label);
+                }
+                /* Checked Knob (Primary Style) */
+                > div {
+                    .translate3d(20px, 0, 0);
+                    background-color: #ffffff;
+                    .box-shadow(~'0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px darken(@switch-track-color, 10%)');
+                }
+            }
+        }
+        /* Tiny Track */
+        &.tinyswitch {
+            ~ div.switch-track {
+                width: 34px;
+                height: 18px;
+                
+                &::after {
+                    left: 42px;
+                    // top: 9px;
+                }
+                /* Tiny Knob */
+                > div {
+                    width: 16px;
+                    height: 16px;
+                    margin-top: 1px;
+                }
+            }
+            &:checked {
+                ~ div.switch-track {
+                    /* Checked Tiny Knob (Primary Style) */
+                    > div {
+                        .translate3d(16px, 0, 0);
+                        .box-shadow(~'0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px darken(@switch-track-color, 10%)');
+                    }
+                }
+            }
+        }
+        /* Big Track */
+        &.bigswitch {
+            ~ div.switch-track {
+                width: 50px;
+                height: 25px;
+                &::after {
+                    left: 60px;
+                    // top: 12px;
+                }
+                /* Big Knob */
+                > div {
+                    width: 23px;
+                    height: 23px;
+                    margin-top: 1px;
+                }
+            }
+            &:checked {
+                ~ div.switch-track {
+                    /* Checked Big Knob (Primary Style) */
+                    > div {
+                        .translate3d(25px, 0, 0);
+                        .box-shadow(~'0px 4px 8px rgba(0, 0, 0, 0.3), 0px 0px 0 1px @color-primary');
+                    }
+                }
+            }
+        }
+
+        &[disabled] {
+            ~ div.switch-track {
+                cursor: not-allowed;
+                border: 1px solid rgba(0, 0, 0, 0.14);
+                .box-shadow(inset 0 0 0 0px rgba(0, 0, 0, 0.14));
+
+                > div {
+                    .box-shadow(~'0px 2px 5px rgba(0, 0, 0, 0.13), 0px 0px 0 1px rgba(0, 0, 0, 0.14)');
+                }
+            }
+            &:checked {
+                ~ div.switch-track {
+                    background-color: lighten(desaturate(@switch-track-color, 60%), 20%);
+                    border: 1px solid lighten(desaturate(darken(@switch-track-color, 10%), 60%), 30%);
+                    .box-shadow(inset 0 0 0 10px lighten(desaturate(@switch-track-color, 60%), 40%));
+                }
+            }
+        }
+    }
+}
