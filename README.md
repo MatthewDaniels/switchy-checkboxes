@@ -10,11 +10,10 @@ http://codepen.io/BandarRaffah/pen/ibwje
 
 
 **VERSION:** 0.0.1
-
 **DATE:** 2016-01-7
 
 
-**@license** Licensed under the MIT License
+Licensed under the MIT License
 See https://github.com/MatthewDaniels/switchy-checkboxes/blob/master/LICENSE.md for details
 
-**@author:** Matt Daniels, me@mattdaniels.com.au
+Matt Daniels, me@mattdaniels.com.au
